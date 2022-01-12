@@ -1,0 +1,61 @@
+.App {
+  text-align: center;
+}
+
+.nav-item,
+.last-nav-item {
+  display: inline-block;
+}
+
+.nav-item a::after {
+  display: inline-block;
+  color: #000;
+  content: "|";
+  font-size: 80%;
+  font-weight: bold;
+  padding: 0 6px;
+}
+
+.navClass {
+  margin-bottom: 30px;
+}
+
+li {
+  list-style-type: none;
+  text-align: left;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+.editListTopBar {
+  max-width: 500px;
+  margin: auto;
+  border-top: 1px solid black;
+  position: relative;
+  height: 28px;
+}
+
+.editListTopBarLeft {
+  left: 0px;
+  position: absolute;
+}
+
+.editListTopBarMiddle {
+  width: 80%;
+  margin: auto;
+  float: left;
+}
+
+.editListTopBarMiddle p{
+  width: 50%;
+  margin: 0;
+  float: left;
+}
+
+.editListTopBarRight {
+  right: 0px;
+  position: absolute;
+}

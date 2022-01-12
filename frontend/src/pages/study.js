@@ -12,7 +12,7 @@ const StudyPage = () => {
   }, []);
 
   return (
-    <div className="App">
+    <div>
       <ul>
         {vocabularyList.map((object, index) => (
           <li key={index}>
