@@ -1,0 +1,51 @@
+.examList {
+  list-style-type: decimal;
+  text-align: left;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.examListItem {
+  width: 100%;
+  position: relative;
+  margin: 5px auto;
+  border: 1px solid black;
+  height: 28px;
+}
+
+.wordsDiv {
+  width: 95%;
+  height: 28px;
+  margin: auto;
+  float: left;
+}
+
+.examList p {
+  float: left;
+  width: 48%;
+  margin: 0 2px;
+  max-height: 28px;
+  overflow: auto;
+}
+
+.examList input {
+  float: left;
+  margin-top: 3px;
+  margin-left: 2px;
+  width: 48%;
+}
+
+.iconDiv {
+  right: 0;
+  margin-top: 2px;
+  position: absolute;
+}
+
+.hiddenIcons {
+  display: none;
+}
+
+.buttonResults {
+  margin-top: 40px;
+}
