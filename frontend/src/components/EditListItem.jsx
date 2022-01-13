@@ -10,12 +10,11 @@ export const EditListItem = ({
   finnish,
   openEditView,
   deleteItem,
-  handleModification,
 }) => {
   return (
     <div className="editListItemDiv">
       <div className="editListItemFirst">
-        <EditIcon onClick={() => openEditView(() => handleModification, english, finnish, id)} />
+        <EditIcon onClick={() => openEditView(() => english, finnish, id)} />
       </div>
       <div className="editListItemTexts">
         <p>{english}</p>

@@ -15,7 +15,9 @@
 .editListItemTexts p {
   width: 50%;
   margin: 0;
+  max-height: 28px;
   float: left;
+  overflow: auto;
 }
 
 .editListItemFirst {

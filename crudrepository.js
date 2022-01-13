@@ -32,11 +32,19 @@ let connectionFunctions = {
     }),
   deleteById: (id) =>
     new Promise((resolve, reject) => {
-      let sql = "DELETE FROM vocabulary WHERE id = " + pool.escape(id);
+      const sql = "DELETE FROM vocabulary WHERE id = " + pool.escape(id);
       pool.query(sql, (err, response) => {
         err ? reject(err) : resolve(response);
       });
     }),
+  editById: (id, words) =>
+    new Promise((resolve, reject) => {
+      const data = [words.english, words.finnish, id];
+      const sql = "UPDATE vocabulary SET english = ?, finnish = ? WHERE id = ?";
+      pool.query(sql, data, (err, response) => {
+        err ? reject(err) : resolve(response)
+      })
+    })
 };
 
 module.exports = connectionFunctions;

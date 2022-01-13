@@ -75,8 +75,8 @@ router.post("/", async (req, res) => {
     res.status(400).send(result);
   } else {
     try {
-      let response = await connection.save(words);
-      res.status(201).send(response);
+      let response = await connection.save(result);
+      res.status(201).send({words: result, id: response.insertId});
     } catch (err) {
       if (err.errno === 1062) {
         let errObj = { english: "Duplicate value!", finnish: "" };
@@ -93,9 +93,9 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:id([0-9]+)", async (req, res) => {
-  let id = req.params.id;
+  const id = req.params.id;
   try {
-    let result = await connection.deleteById(id);
+    const result = await connection.deleteById(id);
     if (result.affectedRows > 0) {
       res.status(204).send({ msg: "Item deleted." });
     } else {
@@ -103,6 +103,31 @@ router.delete("/:id([0-9]+)", async (req, res) => {
     }
   } catch (err) {
     res.status(500).send(err);
+  }
+});
+
+router.put("/:id([0-9]+)", async (req, res) => {
+  const id = req.params.id;
+  const words = req.body;
+  const result = validatePost(words);
+  if ("msg" in result) {
+    res.status(400).send(result);
+  } else {
+    try {
+      const response = await connection.editById(id, result);
+      res.status(200).send({ words: result, id: id });
+    } catch (err) {
+      if (err.errno === 1062) {
+        let errObj = { english: "Duplicate value!", finnish: "" };
+        if (err.sqlMessage.includes("finnish")) {
+          errObj.english = "";
+          errObj.finnish = "Duplicate value!";
+        }
+        res.status(400).send(errObj);
+      } else {
+        res.status(500).send(err);
+      }
+    }
   }
 });
 

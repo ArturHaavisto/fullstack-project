@@ -13,8 +13,7 @@ const EditPage = () => {
   const [vocabularyList, setVocabularyList] = useState([]);
   const [inputEnglish, setInputEnglish] = useState("");
   const [inputFinnish, setInputFinnish] = useState("");
-  const [editId, setEditId] = useState(0);
-  const [popupFunction, setPopupFunction] = useState();
+  const [editId, setEditId] = useState(-1);
   const [popupName, setPopupName] = useState("empty");
   const [errorNameEnglish, setErrorNameEnglish] = useState("hideErrorEnglish");
   const [errorNameFinnish, setErrorNameFinnish] = useState("hideErrorFinnish");
@@ -29,43 +28,41 @@ const EditPage = () => {
   }, []);
 
   /**
-   * Sends modified version of vocabulary item to the backend.
-   */
-  const modifyItem = () => {
-    console.log("modify");
-  };
-
-  /**
-   * Handles and checks that the modification is valid.
-   */
-  const handleModification = (id) => {
-    setEditId(id);
-    console.log("handle modification");
-  };
-
-  /**
-   * Handles the adding of item to the backend.
+   * Handles the sending of new and updated items to the backend.
    */
   const handleAdding = async (english, finnish) => {
     hideErrors();
+    let func = axios.post;
+    let currentUrl = url;
+    if (editId > -1) {
+      currentUrl = url + "/" + editId;
+      func = axios.put;
+    }
     const words = { english: english, finnish: finnish };
     try {
-      const response = await axios.post(url, words);
+      const response = await func(currentUrl, words);
+      console.log(response.data);
+      let newVocabularyList = [];
       if (response.status === 201) {
-        let newVocabularyList = [
+        newVocabularyList = [
           ...vocabularyList,
           {
-            id: response.insertId,
-            english: words.english,
-            finnish: words.finnish,
+            id: response.data.id,
+            english: response.data.words.english,
+            finnish: response.data.words.finnish,
           },
         ];
-        setVocabularyList(newVocabularyList);
-        cancelEditView();
+      } else if (response.status === 200) {
+        const id = Number(response.data.id);
+        newVocabularyList = vocabularyList;
+        let index = newVocabularyList.findIndex((obj) => obj.id === id);
+        newVocabularyList[index].english = response.data.words.english;
+        newVocabularyList[index].finnish = response.data.words.finnish;
       }
+      setVocabularyList(newVocabularyList);
+      cancelEditView();
     } catch (err) {
       const errObj = err.response.data;
-      console.log(errObj);
       let englishError = errObj.english;
       let finnishError = errObj.finnish;
 
@@ -85,20 +82,23 @@ const EditPage = () => {
    *  @param {*} id Id of the deleted item.
    */
   const deleteItem = async (id) => {
-    const result = await axios.delete(url + "/" + id);
-    if(result.status === 204) {
-      const newVocabularyList = [...vocabularyList].filter((object) => object.id !== id);
-      setVocabularyList(newVocabularyList);
-    } else {
-      console.log(result.response)
+    try {
+      const result = await axios.delete(url + "/" + id);
+      if (result.status === 204) {
+        const newVocabularyList = [...vocabularyList].filter(
+          (object) => object.id !== id
+        );
+        setVocabularyList(newVocabularyList);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   /**
    * Shows edit view as a pop up.
    */
-  const openEditView = (f, english, finnish, id) => {
-    setPopupFunction(f);
+  const openEditView = (english, finnish, id) => {
     setInputEnglish(english);
     setInputFinnish(finnish);
     setEditId(id);
@@ -108,6 +108,7 @@ const EditPage = () => {
   const cancelEditView = () => {
     hideErrors();
     changePopupView(false);
+    setEditId(-1);
   };
 
   const changePopupView = (showPopup) => {
@@ -129,9 +130,7 @@ const EditPage = () => {
 
   return (
     <div className="editPage">
-      <button onClick={() => openEditView(() => handleAdding, "", "")}>
-        Add new{" "}
-      </button>
+      <button onClick={() => openEditView(() => "", "")}>Add new </button>
       <div className="editListTopBar">
         <div className="editListTopBarLeft">Edit</div>
         <div className="editListTopBarMiddle">
@@ -150,7 +149,6 @@ const EditPage = () => {
               finnish={object.finnish}
               openEditView={openEditView}
               deleteItem={deleteItem}
-              handleModification={handleModification}
             />
           </li>
         ))}
@@ -174,7 +172,7 @@ const EditPage = () => {
           </div>
           <div className="editPopupDone">
             <DoneIcon
-              onClick={() => popupFunction(inputEnglish, inputFinnish)}
+              onClick={() => handleAdding(inputEnglish, inputFinnish)}
             />
           </div>
           <div className="inputErrors">
