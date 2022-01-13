@@ -13,7 +13,7 @@ const postSchemaEnglish = {
 
 const postSchemaFinnish = {
   type: "string",
-  pattern: "^[a-z\\s]*$",
+  pattern: "^[a-zäöå\\s]*$",
   minLength: 1,
   maxLength: 100,
 };
@@ -71,7 +71,6 @@ router.post("/", async (req, res) => {
   let words = req.body;
   const result = validatePost(words);
   if ("msg" in result) {
-    console.log(result);
     res.status(400).send(result);
   } else {
     try {
