@@ -41,7 +41,6 @@ const EditPage = () => {
     const words = { english: english, finnish: finnish };
     try {
       const response = await func(currentUrl, words);
-      console.log(response.data);
       let newVocabularyList = [];
       if (response.status === 201) {
         newVocabularyList = [
@@ -62,17 +61,21 @@ const EditPage = () => {
       setVocabularyList(newVocabularyList);
       cancelEditView();
     } catch (err) {
-      const errObj = err.response.data;
-      let englishError = errObj.english;
-      let finnishError = errObj.finnish;
+      if (err.response.status === 500) {
+        console.log(err);
+      } else {
+        const errObj = err.response.data;
+        let englishError = errObj.english;
+        let finnishError = errObj.finnish;
 
-      if (englishError !== "") {
-        setErrorEnglish(englishError);
-        showEnglishError();
-      }
-      if (finnishError !== "") {
-        setErrorFinnish(finnishError);
-        showFinnishError();
+        if (englishError !== "") {
+          setErrorEnglish(englishError);
+          showEnglishError();
+        }
+        if (finnishError !== "") {
+          setErrorFinnish(finnishError);
+          showFinnishError();
+        }
       }
     }
   };
