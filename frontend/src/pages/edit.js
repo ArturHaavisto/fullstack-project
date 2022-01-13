@@ -112,10 +112,12 @@ const EditPage = () => {
           </div>
           <div className="editPopupInputs">
             <input
+              placeholder="English"
               value={inputEnglish}
               onChange={(e) => setInputEnglish(e.target.value)}
             />
             <input
+              placeholder="Finnish"
               value={inputFinnish}
               onChange={(e) => setInputFinnish(e.target.value)}
             />
