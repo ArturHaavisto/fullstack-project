@@ -20,8 +20,14 @@ let connectionFunctions = {
     ),
   getAll: () =>
     new Promise((resolve, reject) => {
-      pool.query("select * from vocabulary", (err, vocabulary) => {
+      pool.query("SELECT * FROM vocabulary", (err, vocabulary) => {
         err ? reject(err) : resolve(vocabulary);
+      });
+    }),
+  save: (words) =>
+    new Promise((resolve, reject) => {
+      pool.query("INSERT INTO vocabulary SET ?", words, (err, response) => {
+        err ? reject(err) : resolve(response);
       });
     }),
 };

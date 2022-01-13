@@ -95,3 +95,34 @@
 .editPopupDone:hover {
     cursor: pointer;
 }
+
+.inputErrors {
+  float: none;
+  width: 90%;
+  background-color: aqua;
+  margin: auto;
+}
+
+.inputErrors div {
+  width: 45%;
+  margin: 0 3px 0 5px;
+  background-color: white;
+  text-align: left;
+  float: left;
+}
+
+.hideErrorEnglish {
+  visibility: hidden;
+}
+
+.showErrorEnglish {
+  visibility: visible;
+}
+
+.hideErrorFinnish {
+  visibility: hidden;
+}
+
+.showErrorFinnish {
+  visibility: visible;
+}
