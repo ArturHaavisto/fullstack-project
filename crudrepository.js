@@ -30,6 +30,13 @@ let connectionFunctions = {
         err ? reject(err) : resolve(response);
       });
     }),
+  deleteById: (id) =>
+    new Promise((resolve, reject) => {
+      let sql = "DELETE FROM vocabulary WHERE id = " + pool.escape(id);
+      pool.query(sql, (err, response) => {
+        err ? reject(err) : resolve(response);
+      });
+    }),
 };
 
 module.exports = connectionFunctions;

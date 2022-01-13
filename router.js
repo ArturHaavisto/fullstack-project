@@ -92,4 +92,18 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id([0-9]+)", async (req, res) => {
+  let id = req.params.id;
+  try {
+    let result = await connection.deleteById(id);
+    if (result.affectedRows > 0) {
+      res.status(204).send({ msg: "Item deleted." });
+    } else {
+      res.status(400).send({ msg: "Item already deleted or not found." });
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 module.exports = router;

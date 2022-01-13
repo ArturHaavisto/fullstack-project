@@ -84,8 +84,14 @@ const EditPage = () => {
    * Deletes item.
    *  @param {*} id Id of the deleted item.
    */
-  const deleteItem = (id) => {
-    console.log("delete " + id);
+  const deleteItem = async (id) => {
+    const result = await axios.delete(url + "/" + id);
+    if(result.status === 204) {
+      const newVocabularyList = [...vocabularyList].filter((object) => object.id !== id);
+      setVocabularyList(newVocabularyList);
+    } else {
+      console.log(result.response)
+    }
   };
 
   /**
