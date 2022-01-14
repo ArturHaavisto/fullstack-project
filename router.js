@@ -71,7 +71,7 @@ function getErrorCode(error) {
 router.get("/", async (req, res) => {
   try {
     let vocabulary = await connection.getAll();
-    res.send(vocabulary);
+    res.status(200).send(vocabulary);
   } catch (err) {
     res.status(400).send(err);
   }
