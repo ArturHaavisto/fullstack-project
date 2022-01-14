@@ -4,6 +4,9 @@ import MainPage from "./pages/main";
 import StudyPage from "./pages/study";
 import EditPage from "./pages/edit";
 
+/**
+ * Includes navigation and routing.
+ */
 function App() {
   return (
     <div className="App">
