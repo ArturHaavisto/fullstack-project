@@ -9,15 +9,29 @@ import "../styles/edit.css";
 
 const url = "http://localhost:8080/vocabulary";
 
+/**
+ * This page is used to add, edit and delete vocabulary items.
+ * 
+ * @returns The edit page view.
+ */
 const EditPage = () => {
+  /* The list that contains vocabulary {id: item id, english: English word, finnish: Finnish word} */
   const [vocabularyList, setVocabularyList] = useState([]);
+  /* Input value for English word. */
   const [inputEnglish, setInputEnglish] = useState("");
+  /* Input value for Finnish word. */
   const [inputFinnish, setInputFinnish] = useState("");
+  /* The id of the currently edited vocabulary item. */
   const [editId, setEditId] = useState(-1);
+  /* Classname for the popup div. */
   const [popupName, setPopupName] = useState("empty");
+  /* Classname for the English error div. */
   const [errorNameEnglish, setErrorNameEnglish] = useState("hideErrorEnglish");
+  /* Classname for the Finnish error div. */
   const [errorNameFinnish, setErrorNameFinnish] = useState("hideErrorFinnish");
+  /* Error message for English word input. */
   const [errorEnglish, setErrorEnglish] = useState("");
+  /* Error message for Finnish word input. */
   const [errorFinnish, setErrorFinnish] = useState("");
 
   /**
@@ -29,6 +43,12 @@ const EditPage = () => {
 
   /**
    * Handles the sending of new and updated items to the backend.
+   * If the editId value is changed to indicate an index value, then this function
+   * will send an update request. Otherwise it will send a post request.
+   * If the request was valid and an ok status code is recieved, a new item is stored to 
+   * vocabularyList or an old item is updated.
+   * If the request recieves an error which is users fault, both input error messages are
+   * updated according to the recieved error data.
    */
   const handleAdding = async (english, finnish) => {
     hideErrors();
@@ -70,18 +90,19 @@ const EditPage = () => {
 
         if (englishError !== "") {
           setErrorEnglish(englishError);
-          showEnglishError();
+          setErrorNameEnglish("showErrorEnglish");
         }
         if (finnishError !== "") {
           setErrorFinnish(finnishError);
-          showFinnishError();
+          setErrorNameFinnish("showErrorFinnish");
         }
       }
     }
   };
 
   /**
-   * Deletes item.
+   * Deletes the item with given id.
+   * 
    *  @param {*} id Id of the deleted item.
    */
   const deleteItem = async (id) => {
@@ -99,7 +120,7 @@ const EditPage = () => {
   };
 
   /**
-   * Shows edit view as a pop up.
+   * Sets the editing states and changes the popup-view visible.
    */
   const openEditView = (english, finnish, id) => {
     setInputEnglish(english);
@@ -108,24 +129,27 @@ const EditPage = () => {
     changePopupView(true);
   };
 
+  /**
+   * Sets the editing states to default values.
+   */
   const cancelEditView = () => {
     hideErrors();
     changePopupView(false);
     setEditId(-1);
   };
 
+  /**
+   * Shows or hides the popup-view, depends on the parameter.
+   * 
+   * @param {boolean} showPopup - Indicator on whether the popup-view is show or not.
+   */
   const changePopupView = (showPopup) => {
     showPopup ? setPopupName("editPopupBackground") : setPopupName("empty");
   };
 
-  const showEnglishError = () => {
-    setErrorNameEnglish("showErrorEnglish");
-  };
-
-  const showFinnishError = () => {
-    setErrorNameFinnish("showErrorFinnish");
-  };
-
+  /**
+   * Hides the popup-view error messages.
+   */
   const hideErrors = () => {
     setErrorNameEnglish("hideErrorEnglish");
     setErrorNameFinnish("hideErrorFinnish");
