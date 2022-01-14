@@ -4,12 +4,15 @@ import React from "react";
 
 import "../styles/EditListItem.css";
 
+/**
+ * Returns a structure to be inside a list item.
+ */
 export const EditListItem = ({
-  id,
-  english,
-  finnish,
-  openEditView,
-  deleteItem,
+  id, // Id of the vocabularyList item.
+  english, // English word of the vocabularyList item.
+  finnish, // Finnish word of the vocabularyList item.
+  openEditView, // A function that opens a popup edit view.
+  deleteItem, // A function that deletes an item.
 }) => {
   return (
     <div className="editListItemDiv">
