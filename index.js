@@ -4,6 +4,7 @@ const connection = require("./crudrepository");
 const app = express();
 const port = 8080;
 
+/* Makes sure that cors is allowed from all sources and necessary methods. */
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
