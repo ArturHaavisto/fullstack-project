@@ -3,7 +3,9 @@ import axios from "axios";
 
 const url = "http://localhost:8080/vocabulary";
 
-
+/**
+ * Returns the study page.
+ */
 const StudyPage = () => {
   const [vocabularyList, setVocabularyList] = useState([]);
 
