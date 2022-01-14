@@ -4,14 +4,7 @@ const connection = require("./crudrepository");
 const Validator = require("jsonschema").Validator;
 const validator = new Validator();
 
-const postSchemaEnglish = {
-  type: "string",
-  pattern: "^[a-z\\s]*$",
-  minLength: 1,
-  maxLength: 100,
-};
-
-const postSchemaFinnish = {
+const postSchema = {
   type: "string",
   pattern: "^[a-zäöå\\s]*$",
   minLength: 1,
@@ -21,8 +14,8 @@ const postSchemaFinnish = {
 function validatePost(words) {
   let english = words.english.trim().toLowerCase();
   let finnish = words.finnish.trim().toLowerCase();
-  let validationEnglish = validator.validate(english, postSchemaEnglish);
-  let validationFinnish = validator.validate(finnish, postSchemaFinnish);
+  let validationEnglish = validator.validate(english, postSchema);
+  let validationFinnish = validator.validate(finnish, postSchema);
   const englishErrors = validationEnglish.errors.length;
   const finnishErrors = validationFinnish.errors.length;
   if (englishErrors > 0 || finnishErrors > 0) {
