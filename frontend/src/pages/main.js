@@ -6,13 +6,28 @@ import CheckIcon from "@mui/icons-material/Check";
 
 const url = "http://localhost:8080/vocabulary";
 
+/**
+ * This page is for exercising vocabulary from English to Finnish and vice versa.
+ * 
+ * @returns A main page view.
+ */
 const MainPage = () => {
+  /* A list that contains vocabulary. */
   const [vocabularyList, setVocabularyList] = useState([]);
+  /* The indication on which is the guessing language. */
   const [guessLanguage, setGuessLanguage] = useState("To Finnish");
+  /* The result of the exercise. */
   const [result, setResult] = useState("");
+  /* Classname for the icon indicating correct and incorrect answers. */
   const [iconDiv, setIconDiv] = useState("hiddenIcons");
+  /* A state of inputs and end-button. */
   const [isDisabled, setIsDisabled] = useState(false);
 
+  /**
+   * Gets the vocabulary from the backend.
+   * Sets the vocabularyList according the guessLanguage.
+   * Sets the result, iconDiv and isDisabled to the default values.
+   */
   const getVocabularyList = async () => {
     const result = await axios.get(url);
     const list = result.data;
@@ -40,12 +55,21 @@ const MainPage = () => {
     setIsDisabled(false);
   };
 
+  /**
+   * Switches the guessLanguage.
+   */
   const setExercise = () => {
     guessLanguage === "To Finnish"
       ? setGuessLanguage("To English")
       : setGuessLanguage("To Finnish");
   };
 
+  /**
+   * Changes the input value inside vocabularyList.
+   * 
+   * @param {*} index - Index of the item in vocabularyList.
+   * @param {*} input - Changed input value.
+   */
   const changeInput = (index, input) => {
     let newList = [...vocabularyList];
     let item = { ...newList[index] };
@@ -54,6 +78,12 @@ const MainPage = () => {
     setVocabularyList(newList);
   };
 
+  /**
+   * Compares input and guess values in vocabularyList and calculates the correct amount.
+   * The correct icon is set to each item to indicate correctness or incorrectness.
+   * All input fields and end-button are disabled.
+   * The result is shown.
+   */
   const calculateResult = () => {
     let newList = [];
     let result = 0;
@@ -71,6 +101,11 @@ const MainPage = () => {
     setResult(`${result} / ${vocabularyList.length}`);
   };
 
+  /**
+   * Returns corresponsible icon to the given parameter.
+   * 
+   * @param {boolean} isCorrect - Indicator on whether the answer was correct or not.
+   */
   const getIcon = (isCorrect) => {
     if (isCorrect) {
       return <CheckIcon style={{ fill: "green" }} />;
