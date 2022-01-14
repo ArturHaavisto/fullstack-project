@@ -2,7 +2,7 @@
 
 **This project was done for backend NodeJS-course in TAMK (Tampere University of Applied Sciences).**
 
-Link to the project review video: [project review]()
+Link to the project review video: [project review](https://www.youtube.com/watch?v=DtUttBY4fsY)
 
 Language Trainer is a web-application where users can practice their vocabulary between languages: Finnish and English.<br/> There are three(3) views/pages at the website: <br/>
 
