@@ -21,7 +21,7 @@ app.use(express.json());
 app.use("/vocabulary", vocabulary);
 
 const server = app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  
 });
 
 const shutdown = () => {

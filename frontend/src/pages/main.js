@@ -29,8 +29,6 @@ const MainPage = () => {
    * Sets the result, iconDiv and isDisabled to the default values.
    */
   const getVocabularyList = async () => {
-    console.log(url);
-    console.log("joteain");
     const result = await axios.get(url);
     const list = result.data;
     let newList = [];
