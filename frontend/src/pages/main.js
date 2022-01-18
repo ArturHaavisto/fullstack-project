@@ -4,7 +4,9 @@ import "../styles/main.css";
 import DangerousIcon from "@mui/icons-material/Dangerous";
 import CheckIcon from "@mui/icons-material/Check";
 
-const url = "http://localhost:8080/vocabulary";
+const port = process.env.PORT;
+
+const url = `http://localhost:${port}/vocabulary`;
 
 /**
  * This page is for exercising vocabulary from English to Finnish and vice versa.
