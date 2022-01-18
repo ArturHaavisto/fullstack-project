@@ -2,7 +2,7 @@ const express = require("express");
 const vocabulary = require("./router");
 const connection = require("./crudrepository");
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 /* Makes sure that cors is allowed from all sources and necessary methods. */
 app.use((req, res, next) => {
