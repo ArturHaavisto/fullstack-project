@@ -10,6 +10,9 @@ Language Trainer is a web-application where users can practice their vocabulary 
 2. User can study vocabulary.
 3. User can add, edit or delete words. (Could be implemented that this page would be only awailable to users with clearance.)
 
+## Test the app
+[Heroku link](https://language-trainer-project.herokuapp.com/)
+
 ## Tecnologies used
 
 - Frontend: React <br />
