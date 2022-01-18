@@ -7,7 +7,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 
 import "../styles/edit.css";
 
-const url = "http://localhost:8080/vocabulary";
+const url = `https://language-trainer-project.herokuapp.com/vocabulary`;
 
 /**
  * This page is used to add, edit and delete vocabulary items.

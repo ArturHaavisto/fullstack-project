@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const url = "http://localhost:8080/vocabulary";
+const url = `https://language-trainer-project.herokuapp.com/vocabulary`;
 
 /**
  * Returns the study page.

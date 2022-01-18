@@ -4,9 +4,7 @@ import "../styles/main.css";
 import DangerousIcon from "@mui/icons-material/Dangerous";
 import CheckIcon from "@mui/icons-material/Check";
 
-const port = process.env.PORT;
-
-const url = `http://localhost:${port}/vocabulary`;
+const url = `https://language-trainer-project.herokuapp.com/vocabulary`;
 
 /**
  * This page is for exercising vocabulary from English to Finnish and vice versa.
@@ -31,6 +29,8 @@ const MainPage = () => {
    * Sets the result, iconDiv and isDisabled to the default values.
    */
   const getVocabularyList = async () => {
+    console.log(url);
+    console.log("joteain");
     const result = await axios.get(url);
     const list = result.data;
     let newList = [];
